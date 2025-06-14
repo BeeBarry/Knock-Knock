@@ -8,7 +8,7 @@ namespace KnockAPI.Models
 {
     public class ExpertiseTag
     {
-        public string Name { get; set; }      // e.g. "Bicycles"
+        public string Name { get; set; } // e.g. "Bicycles"
         public string IconEmoji { get; set; } // e.g. "🚲"
     }
 }

@@ -22,16 +22,15 @@ public class AccountFunction
 
     [Function("GetByUsername")]
     public async Task<HttpResponseData> GetByUsername(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "username/{username}")] HttpRequestData req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "username/{username}")]
+            HttpRequestData req,
         string username
     )
     {
         try
         {
             _logger.LogInformation("GET /users called.");
-            
-            
-           
+
             var account = await _repo.GetByUsernameAsync(username);
             var response = req.CreateResponse(HttpStatusCode.OK);
             await response.WriteAsJsonAsync(account);
@@ -55,12 +54,7 @@ public class AccountFunction
             if (dto is null)
                 return req.CreateResponse(HttpStatusCode.BadRequest);
 
-            var account = new Account
-            {
-              
-                Username = dto.Username,
-                Password = dto.Password,
-            };
+            var account = new Account { Username = dto.Username, Password = dto.Password };
 
             var result = await _repo.CreateAsync(account);
 

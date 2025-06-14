@@ -12,9 +12,9 @@ namespace KnockAPI.Repository
     public class AccountRepository : IAccountRepository
     {
         private readonly IMongoCollection<Account> _col;
-        private readonly IUserRepository _user;
+        private readonly IProfileRepository _user;
 
-        public AccountRepository(IMongoDatabase db, IUserRepository user)
+        public AccountRepository(IMongoDatabase db, IProfileRepository user)
         {
             _col = db.GetCollection<Account>("Accounts");
             _user = user;
@@ -39,12 +39,12 @@ namespace KnockAPI.Repository
         {
             try
             {
-                var user = new User();
-               
+                var user = new Profile();
+
                 await _user.CreateAsync(user);
-                account.UserId = user.Id; 
+                account.UserId = user.Id;
                 await _col.InsertOneAsync(account);
-                return account; 
+                return account;
             }
             catch (Exception ex)
             {

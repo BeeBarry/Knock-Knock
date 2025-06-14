@@ -54,7 +54,6 @@ public class ProfileFunction
             // 2. Build your User object
             var profile = new Profile
             {
-               
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Title = dto.Title,

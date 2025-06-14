@@ -9,15 +9,18 @@ namespace KnockAPI.Models
 {
     public class ProfileDTO
     {
-       
         [JsonPropertyName("firstname")]
         public string FirstName { get; set; }
+
         [JsonPropertyName("lastname")]
         public string LastName { get; set; }
+
         [JsonPropertyName("title")]
         public string Title { get; set; }
+
         [JsonPropertyName("avatarurl")]
         public string AvatarUrl { get; set; }
+
         [JsonPropertyName("location")]
         public string Location { get; set; }
     }

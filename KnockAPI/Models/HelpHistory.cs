@@ -9,7 +9,7 @@ namespace KnockAPI.Models
     public class HelpHistory
     {
         public string WithUserName { get; set; } // e.g. "Maria"
-        public string Topic { get; set; }        // e.g. "bicycle recommendations"
-        public DateTime DateUtc { get; set; }    // when it happened
+        public string Topic { get; set; } // e.g. "bicycle recommendations"
+        public DateTime DateUtc { get; set; } // when it happened
     }
 }

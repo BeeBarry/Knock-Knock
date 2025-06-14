@@ -8,8 +8,6 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace KnockAPI.Models
 {
-   
-
     public class Profile
     {
         [BsonId]
@@ -23,16 +21,15 @@ namespace KnockAPI.Models
         public string LastName { get; set; }
 
         [BsonElement("fullname")]
-        public string FullName => $"{FirstName} {LastName}";  // “John Doe”
+        public string FullName => $"{FirstName} {LastName}"; // “John Doe”
 
         [BsonElement("title")]
-        public string Title { get; set; }  // “Software Engineer”
+        public string Title { get; set; } // “Software Engineer”
 
         [BsonElement("avatarurl")]
-        public string AvatarUrl { get; set; }  // profile image
+        public string AvatarUrl { get; set; } // profile image
 
         [BsonElement("location")]
-        public string Location { get; set; }  // “Gothenburg”
-
+        public string Location { get; set; } // “Gothenburg”
     }
 }
