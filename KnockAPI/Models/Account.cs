@@ -12,7 +12,11 @@ namespace KnockAPI.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }           // Mongo ObjectId
+        public string Id { get; set; }
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }  // reference to User collection
 
         [BsonElement("username")]
         public string Username { get; set; }           // e.g. “johndoe”

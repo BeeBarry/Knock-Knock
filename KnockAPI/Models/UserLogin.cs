@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace KnockAPI.Models
 {
-    internal class UserLogin
+    public class UserLogin
     {
+        
+    
     }
 }
