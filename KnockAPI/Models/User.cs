@@ -16,12 +16,6 @@ namespace KnockAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-
-
-
-
-
-
         [BsonElement("firstname")]
         public string FirstName { get; set; }
 

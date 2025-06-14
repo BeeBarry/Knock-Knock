@@ -17,3 +17,18 @@ Content-Type: application/json
   "avatarurl": "https://example.com/avatar.jpg",
   "location": "Gothenburg"
 }
+### create account
+
+POST {{BaseApiUrl}}/register
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "12345"
+}
+### get by username
+GET {{BaseApiUrl}}/username/test
+
+### bla
+GET {{BaseApiUrl}}/users/test
+

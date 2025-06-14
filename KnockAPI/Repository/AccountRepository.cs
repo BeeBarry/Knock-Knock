@@ -44,7 +44,7 @@ namespace KnockAPI.Repository
                 await _user.CreateAsync(user);
                 account.UserId = user.Id; 
                 await _col.InsertOneAsync(account);
-                return account;
+                return account; 
             }
             catch (Exception ex)
             {

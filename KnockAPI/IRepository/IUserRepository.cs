@@ -1,23 +1,17 @@
-﻿using KnockAPI.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnockAPI.Models;
 
-namespace KnockAPI.IRepository
+namespace KnockAPI.IRepository;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        Task<List<User>> GetAllAsync();
-        Task<User> GetByFullNameAsync(string Name);
-        Task<User> CreateAsync(User user);
+    Task<List<User>> GetAllAsync();
+    Task<User> GetByFullNameAsync(string Name);
+    Task<User> CreateAsync(User user);
 
-        Task<User?> GetByAccountIdAsync(string accountId);
-
-
-
-
-
-    }
+    Task<User?> GetUserByIdAsync(string id);
 }
