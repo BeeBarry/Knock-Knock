@@ -40,7 +40,5 @@ namespace KnockAPI.Models
         [BsonElement("location")]
         public string Location { get; set; }  // “Gothenburg”
 
-       
-       
     }
 }
