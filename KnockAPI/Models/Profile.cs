@@ -10,7 +10,7 @@ namespace KnockAPI.Models
 {
    
 
-    public class User
+    public class Profile
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

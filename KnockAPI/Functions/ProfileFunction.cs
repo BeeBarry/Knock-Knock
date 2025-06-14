@@ -9,15 +9,15 @@ using Microsoft.Extensions.Logging;
 
 namespace KnockAPI.Functions;
 
-public class UserFunctions
+public class ProfileFunction
 {
-    private readonly ILogger<UserFunctions> _logger;
-    private readonly IUserRepository _repo;
+    private readonly ILogger<ProfileFunction> _logger;
+    private readonly IProfileRepository _repo;
     private readonly IAccountRepository _accountRepo;
 
-    public UserFunctions(
-        ILogger<UserFunctions> logger,
-        IUserRepository repo,
+    public ProfileFunction(
+        ILogger<ProfileFunction> logger,
+        IProfileRepository repo,
         IAccountRepository accountRepo
     )
     {
@@ -26,35 +26,35 @@ public class UserFunctions
         _accountRepo = accountRepo;
     }
 
-    [Function("GetAllUsers")]
+    [Function("GetAllProfiles")]
     public async Task<HttpResponseData> GetAllUsers(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users")] HttpRequestData req
     )
     {
         _logger.LogInformation("GET /users called.");
 
-        List<User> users = await _repo.GetAllAsync();
+        List<Profile> users = await _repo.GetAllAsync();
 
         var response = req.CreateResponse(HttpStatusCode.OK);
         await response.WriteAsJsonAsync(users);
         return response;
     }
 
-    [Function("CreateUser")]
+    [Function("CreateProfile")]
     public async Task<HttpResponseData> CreateUser(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "users")] HttpRequestData req
     )
     {
         try
         {
-            var dto = await req.ReadFromJsonAsync<UserDTO>();
+            var dto = await req.ReadFromJsonAsync<ProfileDTO>();
             if (dto is null)
                 return req.CreateResponse(HttpStatusCode.BadRequest);
 
             // 2. Build your User object
-            var user = new User
+            var profile = new Profile
             {
-                Id = dto.AccountId,
+               
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Title = dto.Title,
@@ -63,7 +63,7 @@ public class UserFunctions
             };
 
             // 3. Insert into MongoDB
-            var created = await _repo.CreateAsync(user);
+            var created = await _repo.CreateAsync(profile);
 
             // 4. Return 201 Created with the new object
             var resp = req.CreateResponse(HttpStatusCode.Created);
@@ -90,7 +90,7 @@ public class UserFunctions
             if (account is null)
                 return req.CreateResponse(HttpStatusCode.NotFound);
 
-            var user = await _repo.GetUserByIdAsync(account.UserId);
+            var user = await _repo.GetProfileByIdAsync(account.UserId);
             if (user is null)
                 return req.CreateResponse(HttpStatusCode.NotFound);
 

@@ -15,7 +15,7 @@ builder.Services
     .AddSingleton<IMongoClient>(_ => new MongoClient(conn))
     .AddSingleton(sp => sp.GetRequiredService<IMongoClient>().GetDatabase(db))
     .AddSingleton<IAccountRepository, AccountRepository>()
-    .AddSingleton<IUserRepository, UserRepository>();
+    .AddSingleton<IProfileRepository, UserRepository>();
 
 builder.ConfigureFunctionsWebApplication();
 builder.Build().Run();

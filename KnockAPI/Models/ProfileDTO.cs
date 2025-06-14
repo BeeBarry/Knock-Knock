@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace KnockAPI.Models
 {
-    public class UserDTO
+    public class ProfileDTO
     {
-        [JsonPropertyName("accountid")]
-        public string AccountId { get; set; }  // must match an existing Account.Id
+       
         [JsonPropertyName("firstname")]
         public string FirstName { get; set; }
         [JsonPropertyName("lastname")]
