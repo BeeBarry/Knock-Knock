@@ -13,6 +13,9 @@ namespace KnockAPI.IRepository
         Task<User> GetByFullNameAsync(string Name);
         Task<User> CreateAsync(User user);
 
+        Task<User?> GetByAccountIdAsync(string accountId);
+
+
 
 
 

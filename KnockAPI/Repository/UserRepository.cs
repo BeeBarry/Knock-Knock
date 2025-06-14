@@ -1,11 +1,11 @@
-﻿using KnockAPI.IRepository;
-using KnockAPI.Models;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KnockAPI.IRepository;
+using KnockAPI.Models;
+using MongoDB.Driver;
 
 namespace KnockAPI.Repository
 {
@@ -18,20 +18,19 @@ namespace KnockAPI.Repository
             _col = db.GetCollection<User>("Users");
         }
 
-        public Task<List<User>> GetAllAsync() =>
-            _col.Find(_ => true).ToListAsync();
-        public Task<User> GetByFullNameAsync(string fullName) =>
+        public async Task<List<User>> GetAllAsync() => await _col.Find(_ => true).ToListAsync();
+
+        public async Task<User> GetByFullNameAsync(string fullName) => await
             _col.Find(user => user.FullName == fullName).FirstOrDefaultAsync();
 
-        //public Task<> CreateAsync(string id) =>
-        //    _col.Find(user => user.Id == id).FirstOrDefaultAsync();
+        public async Task<User?> GetByAccountIdAsync(string accountId) =>
+            await _col.Find(u => u.AccountId == accountId).FirstOrDefaultAsync();
 
-
-        public Task<User> CreateAsync(User user)
+        public async Task<User> CreateAsync(User user)
         {
-            // Implementation to create a new user
-            throw new NotImplementedException();
-        }
+            await _col.InsertOneAsync(user);
+            return user;
 
+        }
     }
 }

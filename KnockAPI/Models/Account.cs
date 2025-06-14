@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +10,14 @@ namespace KnockAPI.Models
 {
     public class Account
     {
-        public string username { get; set; }  // “John Doe”
-        public string password { get; set; }  // “password123”
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }           // Mongo ObjectId
 
+        [BsonElement("username")]
+        public string Username { get; set; }           // e.g. “johndoe”
 
+        [BsonElement("password")]
+        public string Password { get; set; }           // store a bcrypt hash, not plain text
     }
 }

@@ -1,0 +1,19 @@
+@BaseApiUrl = http://localhost:7001/api
+
+
+### Get all
+GET {{BaseApiUrl}}/users
+
+
+### Bla bla
+POST {{BaseApiUrl}}/users
+Content-Type: application/json
+
+{
+  "accountid": "665f2c5d157f8f2a4b3e1d1a",
+  "firstname": "Zane",
+  "lastname": "Doe",
+  "title": "Fullstack Developer",
+  "avatarurl": "https://example.com/avatar.jpg",
+  "location": "Gothenburg"
+}

@@ -1,7 +1,10 @@
 {
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
-    }
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "Mongo__ConnectionString": "mongodb+srv://public:admin12345@muratsapi.rn37f.mongodb.net/?retryWrites=true&w=majority&appName=MuratsAPI",
+    "Mongo__Database": "ProfileDB"
+  }
+  
 }

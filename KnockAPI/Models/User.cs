@@ -15,13 +15,27 @@ namespace KnockAPI.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        [BsonElement("accountid")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string AccountId { get; set; }
+
+        [BsonElement("firstname")]
         public string FirstName { get; set; }
+
+        [BsonElement("lastname")]
         public string LastName { get; set; }
+
+        [BsonElement("fullname")]
         public string FullName => $"{FirstName} {LastName}";  // “John Doe”
 
-        public string Name { get; set; }  // “Mr. Zane”
+        [BsonElement("title")]
         public string Title { get; set; }  // “Software Engineer”
+
+        [BsonElement("avatarurl")]
         public string AvatarUrl { get; set; }  // profile image
+
+        [BsonElement("location")]
         public string Location { get; set; }  // “Gothenburg”
 
     }
