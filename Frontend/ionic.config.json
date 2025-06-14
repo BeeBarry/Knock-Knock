@@ -1,0 +1,7 @@
+{
+  "name": "knock_knock",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
