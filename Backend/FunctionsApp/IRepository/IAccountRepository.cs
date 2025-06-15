@@ -11,6 +11,7 @@ namespace KnockAPI.IRepository
     {
         Task<Account?> GetByUsernameAsync(string username);
         Task<Account?> CreateAsync(Account account);
+        Task<Account?> LoginAsync(string username, string password);
 
     }
 }

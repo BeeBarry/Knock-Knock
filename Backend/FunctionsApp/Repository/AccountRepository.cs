@@ -34,6 +34,20 @@ namespace KnockAPI.Repository
                 return null;
             }
         }
+        public async Task<Account?> LoginAsync(string username, string password)
+        {
+            try
+            {
+                var result = await _col.Find(a => a.Username.ToLower() == username.ToLower() && a.Password == password)
+                    .FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error logging in: {ex.Message}");
+                return null;
+            }
+        }
 
         public async Task<Account> CreateAsync(Account account)
         {

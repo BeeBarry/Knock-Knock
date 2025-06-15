@@ -68,4 +68,28 @@ public class AccountFunction
             return req.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
+
+    [Function("Login")]
+    public async Task<HttpResponseData> Login(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Login")] HttpRequestData req
+    )
+    {
+        try
+        {
+            var dto = await req.ReadFromJsonAsync<AccountDTO>();
+            if (dto is null)
+                return req.CreateResponse(HttpStatusCode.BadRequest);
+
+            var result = await _repo.LoginAsync(dto.Username, dto.Password);
+
+            var resp = req.CreateResponse(HttpStatusCode.OK);
+            await resp.WriteAsJsonAsync(result);
+            return resp;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+            return req.CreateResponse(HttpStatusCode.BadRequest);
+        }
+    }
 }

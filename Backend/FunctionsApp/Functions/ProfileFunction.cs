@@ -28,7 +28,7 @@ public class ProfileFunction
 
     [Function("GetAllProfiles")]
     public async Task<HttpResponseData> GetAllUsers(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users")] HttpRequestData req
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "profiles")] HttpRequestData req
     )
     {
         _logger.LogInformation("GET /users called.");
@@ -42,7 +42,7 @@ public class ProfileFunction
 
     [Function("CreateProfile")]
     public async Task<HttpResponseData> CreateUser(
-        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "users")] HttpRequestData req
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "profiles")] HttpRequestData req
     )
     {
         try
@@ -78,7 +78,7 @@ public class ProfileFunction
 
     [Function("GetUserFromAccount")]
     public async Task<HttpResponseData> GetUserFromAccount(
-        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "users/{username}")]
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "profiles/{username}")]
             HttpRequestData req,
         string username
     )
@@ -103,4 +103,46 @@ public class ProfileFunction
             return req.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
+    [Function("UpdateProfile")]
+    public async Task<HttpResponseData> UpdateProfile(
+         [HttpTrigger(AuthorizationLevel.Function, "put", Route = "profiles/{userId}")]
+        HttpRequestData req,
+         string userId)
+    {
+        
+        var dto = await req.ReadFromJsonAsync<ProfileDTO>();
+        if (dto is null)
+            return req.CreateResponse(HttpStatusCode.BadRequest);
+
+        
+        var existing = await _repo.GetProfileByIdAsync(userId);
+        if (existing is null)
+            return req.CreateResponse(HttpStatusCode.NotFound);
+
+       
+        existing.FirstName = dto.FirstName;
+        existing.LastName = dto.LastName;
+        existing.Title = dto.Title;
+        existing.AvatarUrl = dto.AvatarUrl;
+        existing.Location = dto.Location;
+
+        
+        try
+        {
+            var updated = await _repo.UpdateAsync(existing);
+            var resp = req.CreateResponse(HttpStatusCode.OK);
+            await resp.WriteAsJsonAsync(updated);
+            return resp;
+        }
+        catch (KeyNotFoundException)
+        {
+            return req.CreateResponse(HttpStatusCode.NotFound);
+        }
+    }
+
+
+
+
+
+
 }

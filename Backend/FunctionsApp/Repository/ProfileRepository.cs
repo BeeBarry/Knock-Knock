@@ -33,4 +33,14 @@ public class ProfileRepository : IProfileRepository
         await _col.InsertOneAsync(Profile);
         return Profile;
     }
+
+    public async Task<Profile> UpdateAsync(Profile p)
+    {
+        var filter = Builders<Profile>.Filter.Eq(x => x.Id, p.Id);
+        // We replace the whole document—keep Id and UserId, overwrite the rest:
+        var result = await _col.ReplaceOneAsync(filter, p);
+        if (result.MatchedCount == 0)
+            throw new KeyNotFoundException($"No profile found for UserId={p.Id}");
+        return p;
+    }
 }

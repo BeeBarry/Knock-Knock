@@ -14,4 +14,5 @@ public interface IProfileRepository
     Task<Profile> CreateAsync(Profile Profile);
 
     Task<Profile?> GetProfileByIdAsync(string id);
+    Task<Profile> UpdateAsync(Profile profile);
 }

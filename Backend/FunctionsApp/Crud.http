@@ -2,15 +2,14 @@
 
 
 ### Get all
-GET {{BaseApiUrl}}/users
+GET {{BaseApiUrl}}/profiles
 
 
 ### Bla bla
-POST {{BaseApiUrl}}/users
+PUT {{BaseApiUrl}}/profiles/684e153b63596858a7163694
 Content-Type: application/json
 
 {
-  "accountid": "665f2c5d157f8f2a4b3e1d1a",
   "firstname": "Zane",
   "lastname": "Doe",
   "title": "Fullstack Developer",
@@ -23,12 +22,24 @@ POST {{BaseApiUrl}}/register
 Content-Type: application/json
 
 {
-  "username": "test",
+  "username": "test3",
   "password": "12345"
 }
+### login 
+POST {{BaseApiUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "test3",
+  "password": "12345"
+}
+
 ### get by username
 GET {{BaseApiUrl}}/username/test
 
 ### bla
-GET {{BaseApiUrl}}/users/test
+GET {{BaseApiUrl}}/profiles/test2
+
+
+
 
