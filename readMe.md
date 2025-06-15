@@ -4,7 +4,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone <YOUR_GIT_URL>
+   git clone <the_url_from_clicking_the_green_url_button>
    cd knock-knock
    ```
 
