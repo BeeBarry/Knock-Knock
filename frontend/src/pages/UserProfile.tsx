@@ -1,40 +1,17 @@
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { MapPin, Star, MessageSquare, User, HelpCircle } from 'lucide-react';
+import { mockUsers } from '../data/mockData';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import Header from '../components/Header';
-import { profileService } from '../services/profiles';
-import { mapProfileToUser } from '../utils/dataMapping';
 
 const UserProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   
-  // Fetch user profile by username (assuming userId is actually username for now)
-  const { data: profile, isLoading, error } = useQuery({
-    queryKey: ['profile', userId],
-    queryFn: () => profileService.getProfileByUsername(userId!),
-    enabled: !!userId
-  });
+  const user = mockUsers.find(u => u.id === userId);
 
-  const user = profile ? mapProfileToUser(profile) : null;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header showBackButton={true} title="Loading Profile..." />
-        <main className="max-w-4xl mx-auto px-4 py-8">
-          <div className="text-center py-12">
-            <div className="w-8 h-8 border-2 border-[hsl(var(--coral))]/30 border-t-[hsl(var(--coral))] rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-muted-foreground">Loading profile...</p>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  if (error || !user) {
+  if (!user) {
     return (
       <div className="min-h-screen bg-background">
         <Header showBackButton={true} title="Profile Not Found" />

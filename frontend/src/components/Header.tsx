@@ -1,7 +1,5 @@
-
-import { Home, Users, User, MessageSquare, ArrowLeft, HandHeart, LogIn, LogOut } from 'lucide-react';
+import { Home, Users, User, MessageSquare, ArrowLeft, HandHeart } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
 
 interface HeaderProps {
@@ -12,8 +10,7 @@ interface HeaderProps {
 const Header = ({ showBackButton = false, title }: HeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, logout, isLoading } = useAuth();
-  
+
   const isActive = (path: string) => location.pathname === path;
 
   // Get the appropriate icon based on the current route
@@ -33,19 +30,8 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
         return <User className="w-6 h-6 text-white" />;
       case '/messages':
         return <MessageSquare className="w-6 h-6 text-white" />;
-      case '/login':
-        return <LogIn className="w-6 h-6 text-white" />;
       default:
         return <Home className="w-6 h-6 text-white" />;
-    }
-  };
-
-  const handleAuthAction = () => {
-    if (isAuthenticated) {
-      logout();
-      navigate('/');
-    } else {
-      navigate('/login');
     }
   };
 
@@ -106,52 +92,29 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
               >
                 Community
               </button>
-              {isAuthenticated && (
-                <button 
-                  onClick={() => navigate('/profile')}
-                  className={`transition-colors ${
-                    isActive('/profile') 
-                      ? 'text-[hsl(var(--coral))] font-medium' 
-                      : 'text-muted-foreground hover:text-[hsl(var(--coral))]'
-                  }`}
-                >
-                  Profile
-                </button>
-              )}
-              {isAuthenticated && (
-                <button 
-                  onClick={() => navigate('/messages')}
-                  className={`transition-colors ${
-                    isActive('/messages') 
-                      ? 'text-[hsl(var(--coral))] font-medium' 
-                      : 'text-muted-foreground hover:text-[hsl(var(--coral))]'
-                  }`}
-                >
-                  Messages
-                </button>
-              )}
+              <button 
+                onClick={() => navigate('/profile')}
+                className={`transition-colors ${
+                  isActive('/profile') 
+                    ? 'text-[hsl(var(--coral))] font-medium' 
+                    : 'text-muted-foreground hover:text-[hsl(var(--coral))]'
+                }`}
+              >
+                Profile
+              </button>
+              <button 
+                onClick={() => navigate('/messages')}
+                className={`transition-colors ${
+                  isActive('/messages') 
+                    ? 'text-[hsl(var(--coral))] font-medium' 
+                    : 'text-muted-foreground hover:text-[hsl(var(--coral))]'
+                }`}
+              >
+                Messages
+              </button>
             </nav>
-
-            <ThemeToggle />
             
-            {/* Auth Button */}
-            <button
-              onClick={handleAuthAction}
-              disabled={isLoading}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[hsl(var(--coral))] to-[hsl(var(--coral-secondary))] text-white font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50"
-            >
-              {isAuthenticated ? (
-                <>
-                  <LogOut className="w-4 h-4" />
-                  <span className="hidden sm:inline">Logout</span>
-                </>
-              ) : (
-                <>
-                  <LogIn className="w-4 h-4" />
-                  <span className="hidden sm:inline">Login</span>
-                </>
-              )}
-            </button>
+            <ThemeToggle />
           </div>
         </div>
       </div>
