@@ -1,6 +1,6 @@
 // src/components/PreviouslyHelped.tsx
 // src/components/PreviouslyHelped.tsx
-import type {PreviousHelp} from '../types';
+import type {HelpHistory} from '../types';
 
 interface PreviouslyHelpedProps {
     helpHistory: PreviousHelp[];

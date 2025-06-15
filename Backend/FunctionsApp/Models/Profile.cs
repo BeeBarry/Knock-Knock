@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -31,5 +32,9 @@ namespace KnockAPI.Models
 
         [BsonElement("location")]
         public string Location { get; set; } // “Gothenburg”
+        [BsonElement("expertise")]
+        public List<Expertise> Expertise { get; set; } = new List<Expertise>();
+        [BsonElement("previoushelps")]
+        public List<HelpHistory> PreviousHelps { get; set; } = new();
     }
 }

@@ -5,6 +5,11 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     "Mongo__ConnectionString": "mongodb+srv://public:admin12345@muratsapi.rn37f.mongodb.net/?retryWrites=true&w=majority&appName=MuratsAPI",
     "Mongo__Database": "ProfileDB"
+  },
+  "Host": {
+    "CORS": "http://localhost:5173",
+    "CORSCredentials": false
   }
-  
+
+
 }  

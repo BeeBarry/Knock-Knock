@@ -1,52 +1,106 @@
-// src/pages/Profile.tsx
-import { currentUser } from '../data';
-import PreviouslyHelped from '../components/PreviouslyHelped';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import type { User } from '../types';
 
 export default function Profile() {
+    const { username } = useParams(); // Get the username from the route params
+    const [profile, setProfile] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await fetch(`http://localhost:7001/api/profiles/${username}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
+                }
+                const data: User = await response.json();
+                setProfile(data);
+            } catch (err) {
+                setError('An error occurred while fetching the profile.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [username]);
+
+    if (loading) {
+        return <div className="text-center mt-5">Loading...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center text-danger mt-5">{error}</div>;
+    }
+
+    if (!profile) {
+        return <div className="text-center mt-5">Profile not found.</div>;
+    }
+
     return (
-        <div className="min-h-screen bg-gray-50 pb-20">
-            <div className="bg-white border-b border-gray-200 p-4">
-                <h1 className="text-xl font-semibold text-center">Min Profil</h1>
-            </div>
+        <div className="container mt-5">
+            <div className="text-center">
+                {/* Header */}
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <button className="btn btn-outline-secondary">
+                        <span className="fs-4">☰</span>
+                    </button>
+                    <h1 className="fw-bold">Knock Knock</h1>
+                    <button className="btn btn-outline-secondary">
+                        <span className="fs-4">👤</span>
+                    </button>
+                </div>
 
-            <div className="p-4">
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                    <div className="flex items-center mb-4">
-                        <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mr-4">
-              <span className="text-gray-600 font-medium text-lg">
-                {currentUser.name.split(' ').map(n => n[0]).join('')}
-              </span>
+                {/* Profile Card */}
+                <div className="card mx-auto shadow-sm" style={{ maxWidth: '500px' }}>
+                    <div className="card-body">
+                        <div className="d-flex align-items-center mb-4">
+                            <img
+                                src={profile.avatarUrl || 'https://via.placeholder.com/64'}
+                                alt={profile.fullName}
+                                className="rounded-circle me-3"
+                                style={{ width: '64px', height: '64px' }}
+                            />
+                            <div>
+                                <h2 className="fw-bold">{profile.fullName}</h2>
+                                <span className="badge bg-warning text-dark">{profile.title}</span>
+                                <p className="text-muted mt-1">📍 {profile.location}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 className="text-xl font-semibold">{currentUser.name}</h2>
-                            <span className="bg-yellow-500 text-white px-2 py-1 rounded text-sm">
-                {currentUser.profession}
-              </span>
-                            <p className="text-gray-600 mt-1">📍 {currentUser.location}</p>
+                        <div className="alert alert-light text-center mb-4">
+                            Glad to help you out, there are no stupid questions! :)
                         </div>
+                        <button className="btn btn-warning w-100">Knock</button>
                     </div>
+                </div>
 
-                    {currentUser.bio && (
-                        <div className="bg-gray-100 rounded-lg p-3 mb-6">
-                            <p className="text-gray-700">{currentUser.bio}</p>
-                            <button className="mt-3 bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center">
-                                💬 Knock
-                            </button>
-                        </div>
-                    )}
-
-                    <div className="mb-6">
-                        <h3 className="text-lg font-medium mb-3">Expertise</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {currentUser.expertise.map(skill => (
-                                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full text-sm border">
-                  {skill === 'Bicycles' && '🚲'} {skill}
-                </span>
-                            ))}
-                        </div>
+                {/* Expertise Section */}
+                <div className="mt-5">
+                    <h3 className="fw-bold mb-3">Expertise</h3>
+                    <div className="d-flex flex-wrap justify-content-center gap-2">
+                        {profile.expertise && profile.expertise.map((skill, index) => (
+                            <span key={index} className="badge bg-light text-dark border">
+                                {skill.icon} {skill.name}
+                            </span>
+                        ))}
                     </div>
+                </div>
 
-                    <PreviouslyHelped helpHistory={currentUser.previouslyHelped} />
+                {/* Previously Helped Section */}
+                <div className="mt-5">
+                    <h3 className="fw-bold mb-3">Previously Helped</h3>
+                    <ul className="list-group">
+                        {profile.previousHelps && profile.previousHelps.map((help, index) => (
+                            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                {help.withUserName} - {help.topic}
+                                <span className="badge bg-success">
+                                    {new Date(help.dateUtc).toLocaleDateString()}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>

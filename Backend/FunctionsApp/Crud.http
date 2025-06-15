@@ -1,4 +1,4 @@
-@BaseApiUrl = http://localhost:7001/api
+﻿@BaseApiUrl = http://localhost:7001/api
 
 
 ### Get all
@@ -6,16 +6,33 @@ GET {{BaseApiUrl}}/profiles
 
 
 ### Bla bla
-PUT {{BaseApiUrl}}/profiles/684e153b63596858a7163694
+PUT {{BaseApiUrl}}/profiles/684e1dae6a71463ddd0e4784
 Content-Type: application/json
-
 {
   "firstname": "Zane",
-  "lastname": "Doe",
-  "title": "Fullstack Developer",
-  "avatarurl": "https://example.com/avatar.jpg",
-  "location": "Gothenburg"
+  "lastname":  "Doe",
+  "title":     "Software Engineer",
+  "avatarurl": "https://example.com/avatars/johndoe.png",
+  "location":  "Gothenburg",
+  "expertise": [
+    { "name": "good boy", "icon": "🚲" },
+    { "name": "Yes you are",   "icon": "☕" }
+  ],
+  "previoushelps": [
+    {
+      "withusername": "Alice",
+      "topic":        "bike tuning",
+      "dateutc":      "2025-06-14T10:30:00Z"
+    },
+    {
+      "withusername": "delo",
+      "topic":        "bike grinding",
+      "dateutc":      "2025-06-14T10:30:00Z"
+    }
+  ]
 }
+
+
 ### create account
 
 POST {{BaseApiUrl}}/register
@@ -30,15 +47,15 @@ POST {{BaseApiUrl}}/login
 Content-Type: application/json
 
 {
-  "username": "test3",
+  "username": "delo",
   "password": "12345"
 }
 
 ### get by username
-GET {{BaseApiUrl}}/username/test
+GET {{BaseApiUrl}}/username/delo
 
 ### bla
-GET {{BaseApiUrl}}/profiles/test2
+GET {{BaseApiUrl}}/profiles/delo
 
 
 

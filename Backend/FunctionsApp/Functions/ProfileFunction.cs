@@ -61,6 +61,10 @@ public class ProfileFunction
                 Location = dto.Location,
             };
 
+
+               
+                
+
             // 3. Insert into MongoDB
             var created = await _repo.CreateAsync(profile);
 
@@ -125,6 +129,8 @@ public class ProfileFunction
         existing.Title = dto.Title;
         existing.AvatarUrl = dto.AvatarUrl;
         existing.Location = dto.Location;
+        existing.Expertise = dto.Expertise;
+        existing.PreviousHelps = dto.PreviousHelps;
 
         
         try

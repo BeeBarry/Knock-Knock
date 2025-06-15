@@ -1,6 +1,6 @@
 // src/pages/Knocks.tsx
 import { useNavigate } from 'react-router';
-import { mockChats } from '../data';
+import { type Chat } from '../data';
 
 export default function Knocks() {
     const navigate = useNavigate();

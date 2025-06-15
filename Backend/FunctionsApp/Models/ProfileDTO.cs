@@ -23,5 +23,10 @@ namespace KnockAPI.Models
 
         [JsonPropertyName("location")]
         public string Location { get; set; }
+
+        [JsonPropertyName("expertise")]
+        public List<Expertise> Expertise { get; set; } = new List<Expertise>();
+        [JsonPropertyName("previoushelps")]
+        public List<HelpHistory> PreviousHelps { get; set; } = new();
     }
 }

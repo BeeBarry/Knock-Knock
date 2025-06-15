@@ -1,105 +1,44 @@
-import type {User, Chat, } from './types';
 
-export const currentUser: User = {
-    id: 'zane-1',
-    name: 'Mr. Zane',
-    profession: 'Software Engineer',
-    location: 'Gothenburg',
-    expertise: ['Bicycles', 'Writing', 'Home network'],
-    previouslyHelped: [
-        { personName: 'Maria', helpType: 'bicycle recommendations', daysAgo: 2 },
-        { personName: 'Lennart', helpType: 'WIFI problems', daysAgo: 6 }
-    ],
-    distance: 0,
-    bio: 'Glad to help you out, there are no stupid questions! :)'
-};
+export interface User {
+    id: string; // MongoDB ObjectId for the profile
+    firstName: string; // First name of the user
+    lastName: string; // Last name of the user
+    fullName: string; // Full name of the user
+    title: string; // Title or profession of the user
+    avatarUrl?: string; // Optional avatar URL
+    location: string; // Location of the user
+    expertise: Expertise[]; // List of expertise areas
+    previousHelps: HelpHistory[]; // List of previous help history
+}
 
-export const communityUsers: User[] = [
-    {
-        id: 'anna-1',
-        name: 'Anna Svensson',
-        profession: 'Chef',
-        location: 'Gothenburg',
-        expertise: ['cooking', 'writing'],
-        previouslyHelped: [],
-        distance: 0.5
-    },
-    {
-        id: 'erik-1',
-        name: 'Erik Johansson',
-        profession: 'IT Consultant',
-        location: 'Gothenburg',
-        expertise: ['computers', 'bicycling'],
-        previouslyHelped: [],
-        distance: 1.2
-    },
-    {
-        id: 'lisa-1',
-        name: 'Lisa Andersson',
-        profession: 'Graphic Designer',
-        location: 'Gothenburg',
-        expertise: ['running', 'drawing'],
-        previouslyHelped: [],
-        distance: 2.1
-    },
-    {
-        id: 'magnus-1',
-        name: 'Magnus Berg',
-        profession: 'Bike Mechanic',
-        location: 'Gothenburg',
-        expertise: ['bicycling', 'computers'],
-        previouslyHelped: [],
-        distance: 3.5
-    }
-];
+export interface Expertise {
+    name: string; // Name of the expertise (e.g., "good boy")
+    icon: string; // Icon representing the expertise (e.g., "🚲")
+}
 
-export const mockChats: Chat[] = [
-    {
-        id: 'chat-1',
-        participants: [currentUser, communityUsers[0]],
-        messages: [
-            {
-                id: 'msg-1',
-                senderId: 'anna-1',
-                content: 'Tack så mycket för hjälpen med cykeln!',
-                timestamp: '2025-06-14T10:30:00Z'
-            }
-        ],
-        lastMessage: {
-            id: 'msg-1',
-            senderId: 'anna-1',
-            content: 'Tack så mycket för hjälpen med cykeln!',
-            timestamp: '2025-06-14T10:30:00Z'
-        },
-        updatedAt: '2025-06-14T10:30:00Z'
-    },
-    {
-        id: 'chat-2',
-        participants: [currentUser, communityUsers[1]],
-        messages: [
-            {
-                id: 'msg-2',
-                senderId: 'erik-1',
-                content: 'Hej, kan du hjälpa mig med wifi igen?',
-                timestamp: '2025-06-14T09:15:00Z'
-            }
-        ],
-        lastMessage: {
-            id: 'msg-2',
-            senderId: 'erik-1',
-            content: 'Hej, kan du hjälpa mig med wifi igen?',
-            timestamp: '2025-06-14T09:15:00Z'
-        },
-        updatedAt: '2025-06-14T09:15:00Z'
-    }
-];
+export interface HelpHistory {
+    withUserName: string; // Name of the person helped (e.g., "Alice")
+    topic: string; // Topic of the help (e.g., "bike tuning")
+    dateUtc: string; // ISO date string for when the help occurred
+}
 
-export const expertiseCategories = [
-    'Alla',
-    'Bicycling',
-    'Writing',
-    'Cooking',
-    'Computers',
-    'Running',
-    'Drawing'
-];
+export interface Message {
+    id: string; // MongoDB ObjectId
+    chat: string; // Reference to the Chat ObjectId
+    username: string; // Username of the sender
+    text: string; // Message content
+    timestamp: string; // ISO date string for the message timestamp
+}
+
+export interface Chat {
+    id: string;
+    participants: User[];
+    messages: Message[];
+    lastMessage?: Message;
+    updatedAt: string;
+}
+export interface LoginResponse {
+    Id: string; // MongoDB ObjectId for the login session
+    UserId: string; // MongoDB ObjectId for the user
+    Username: string; // Username of the logged-in user
+}
