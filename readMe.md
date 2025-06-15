@@ -32,6 +32,13 @@ Knock Knock is a location-based community platform that connects neighbors with 
 
 The app solves the problem of finding local expertise in your neighborhood. Instead of searching online for expensive services or struggling alone, users can find skilled neighbors willing to help - creating a collaborative community where everyone benefits from shared knowledge.
 
+
+## Please observe
+
+The following functionality have been created (visible in the files) but have been left out of the final version of the submitted draft to the Appathon finale. This is for the sole reason of reducing the steps of installation:
+* Express API acting as middlehand (WebSocket) for to clients sending messages (the chat functionality)
+* Azure Functions CRUD operations to connect Frontend to Mongo DB
+
 ## Key Features
 
 - **Browse nearby experts** - View people in your area with their skills and distance from you
